@@ -17,7 +17,7 @@
    and votes update live. Left empty, the site still works but each person
    only sees what is on their own device.
    ========================================================= */
-const FIREBASE_URL = '';
+const FIREBASE_URL = 'https://tripplanner-cb08f-default-rtdb.asia-southeast1.firebasedatabase.app/';
 const ONLINE = /^https:\/\//.test(FIREBASE_URL);
 const DB_URL = FIREBASE_URL.replace(/\/+$/, '');
 
