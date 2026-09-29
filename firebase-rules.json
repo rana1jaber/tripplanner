@@ -1,0 +1,30 @@
+{
+  "rules": {
+    "trips": {
+      "$tripId": {
+        ".read": true,
+        ".write": "newData.exists()",
+        ".validate": "$tripId.matches(/^[a-z0-9]{6,12}$/)",
+        "name": { ".validate": "newData.isString() && newData.val().length <= 100" },
+        "admin": { ".validate": "newData.isString() && newData.val().length <= 40" },
+        "members": {
+          "$memberId": {
+            ".validate": "newData.hasChildren(['name', 'role']) && newData.child('name').isString() && newData.child('name').val().length <= 40 && (newData.child('role').val() === 'member' || newData.child('role').val() === 'admin')"
+          }
+        },
+        "comments": {
+          "$itemId": {
+            "$commentId": {
+              ".validate": "newData.child('text').isString() && newData.child('text').val().length <= 500 && newData.child('by').isString()"
+            }
+          }
+        },
+        "expenses": {
+          "$expenseId": {
+            ".validate": "newData.child('amount').isNumber() && newData.child('amount').val() > 0 && newData.child('amount').val() < 100000000 && newData.child('desc').isString() && newData.child('desc').val().length <= 100"
+          }
+        }
+      }
+    }
+  }
+}
